@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="VehicleClassLibrary.Tests/VehicleClassLibrary.Tests.csproj" Id="df7b3dd3-3514-4c63-8a02-4cb55644c6ed" />
   <Project Path="VehicleClassLibrary/VehicleClassLibrary.csproj" />
 </Solution>
