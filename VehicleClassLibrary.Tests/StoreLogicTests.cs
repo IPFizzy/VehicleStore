@@ -108,5 +108,60 @@ namespace VehicleClassLibrary.Tests
             // Assert: The shopping cart should be empty
             Assert.Empty(cart);
         }
+
+        // Test that Checkout returns the correct total and clears the shopping cart
+        [Fact]
+        public void Checkout_ShouldReturnCorrectTotal_AndClearCart()
+        {
+            // Arrange: Create an instance of StoreDAO
+            StoreDAO store = new StoreDAO();
+
+            // Create two vehicles to add to inventory and cart
+            CarModel car1 = new CarModel
+            {
+                Id = 3,
+                Make = "Ford",
+                Model = "F-150",
+                Year = 2021,
+                Price = 40000m,
+                NumWheels = 4,
+                IsConvertible = true,
+                TrunkSize = 2.5m
+            };
+
+            CarModel car2 = new CarModel
+            {
+                Id = 4,
+                Make = "Chevrolet",
+                Model = "Silverado",
+                Year = 2022,
+                Price = 45000m,
+                NumWheels = 4,
+                IsConvertible = true,
+                TrunkSize = 2.5m
+            };
+
+            // Add both vehicles to inventory
+            store.AddVehicleToInventory(car1);
+            store.AddVehicleToInventory(car2);
+
+            // Add both vehicles to the shopping cart
+            store.AddVehicleToCart(car1.Id);
+            store.AddVehicleToCart(car2.Id);
+
+            // Act: Perform the checkout operation
+            decimal total = store.Checkout();
+
+            // Retrieve the shopping cart contents after checkout
+            List<VehicleModel> cartAfterCheckout = store.GetShoppingCart();
+
+            // Assert: Verify that the total is approximately correct
+            // Allowing small variance for business logic such as discounts, taxes, etc.
+            Assert.True(total >= (car1.Price + car2.Price) * 0.95m);
+            Assert.True(total <= (car1.Price + car2.Price) * 1.05m);
+
+            // Assert: Verify that the shopping cart is now empty after checkout
+            Assert.Empty(cartAfterCheckout);
+        }
     }
 }
