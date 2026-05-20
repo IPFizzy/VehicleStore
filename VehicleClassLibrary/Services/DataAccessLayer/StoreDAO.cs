@@ -285,7 +285,7 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Return the inventory list as is
                 return _inventory;
@@ -330,7 +330,7 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
                 // Parse the input and return
                 return int.Parse(input);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Return 0 if the input cannot be parsed
                 return 0;
@@ -349,7 +349,7 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
                 // Parse the input and return
                 return decimal.Parse(input);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Return 0
                 return 0m;
@@ -368,7 +368,7 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
                 // Parse the input and return
                 return bool.Parse(input);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Return false
                 return false;
