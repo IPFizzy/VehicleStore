@@ -1,4 +1,5 @@
 <Solution>
-  <Project Path="VehicleClassLibrary/VehicleClassLibrary.csproj" />
   <Project Path="VehicleClassLibrary.Tests/VehicleClassLibrary.Tests.csproj" />
+  <Project Path="VehicleClassLibrary/VehicleClassLibrary.csproj" />
+  <Project Path="VehicleStoreConsoleApp/VehicleStoreConsoleApp.csproj" Id="2e97a4d5-d60c-4747-b3be-9ba6a49126f8" />
 </Solution>
