@@ -45,28 +45,6 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
         }
 
         /// <summary>
-        /// Add a vehicle to the shopping cart based on the vehicle's id.
-        /// </summary>
-        /// <param name="vehicleId">The id of the vehicle to add to the shopping cart.</param>
-        /// <returns>The number of items in the shopping cart.</returns>
-        public int AddVehicleToCart(int vehicleId)
-        {
-            // Loop through the inventory to find the correct vehicle
-            for (int i = 0; i < _inventory.Count; i++)
-            {
-                // Check if the inventory vehicle id matches the parameter
-                if (_inventory[i].Id == vehicleId)
-                {
-                    // If so, add the vehicle to the shopping cart
-                    _shoppingCart.Add(_inventory[i]);
-                }
-            }
-
-            // Return the number of items in the shopping cart
-            return _shoppingCart.Count;
-        }
-
-        /// <summary>
         /// Gets the inventory list.
         /// </summary>
         /// <returns>The inventory list.</returns>
@@ -101,6 +79,28 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
 
             // Return the new vehicle id
             return vehicle.Id;
+        }
+
+        /// <summary>
+        /// Add a vehicle to the shopping cart based on the vehicle's id.
+        /// </summary>
+        /// <param name="vehicleId">The id of the vehicle to add to the shopping cart.</param>
+        /// <returns>The number of items in the shopping cart.</returns>
+        public int AddVehicleToCart(int vehicleId)
+        {
+            // Loop through the inventory to find the correct vehicle
+            for (int i = 0; i < _inventory.Count; i++)
+            {
+                // Check if the inventory vehicle id matches the parameter
+                if (_inventory[i].Id == vehicleId)
+                {
+                    // If so, add the vehicle to the shopping cart
+                    _shoppingCart.Add(_inventory[i]);
+                }
+            }
+
+            // Return the number of items in the shopping cart
+            return _shoppingCart.Count;
         }
     }
 }
