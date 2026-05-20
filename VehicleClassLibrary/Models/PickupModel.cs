@@ -46,8 +46,10 @@ namespace VehicleClassLibrary.Models
             int year,
             decimal price,
             int numWheels,
+            string color,
+            int mileage,
             bool hasBedCover,
-            decimal bedSize) : base(id, make, model, year, price, numWheels)
+            decimal bedSize) : base(id, make, model, year, price, numWheels, color, mileage)
         {
             HasBedCover = hasBedCover;
             BedSize = bedSize;
@@ -65,8 +67,8 @@ namespace VehicleClassLibrary.Models
 
             // Print the pickup in the following format
             // 1: 2001 Toyota Tundra with 4 wheels and a 8.3 cubic foot bed with(out) a bed cover - $5000.00
-            return $"{Id}: {Year} {Make} {Model} with {NumWheels} wheels and a {BedSize} " +
-                $"cubic foot bed {bedCover} a bed cover - {Price:C2}";
+            return $"{Id}: {Year} {Color} {Make} {Model} with {NumWheels} wheels, {Mileage} miles, " +
+                $"and a {BedSize} cubic foot bed {bedCover} a bed cover - {Price:C2}";
         }
     }
 }

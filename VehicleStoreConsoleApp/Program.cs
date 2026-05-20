@@ -74,6 +74,100 @@ static int ReadChoice()
     return choice;
 }
 
+// Read a required string from the user
+static string ReadRequiredString(string prompt)
+{
+    string? input = "";
+
+    while (string.IsNullOrWhiteSpace(input))
+    {
+        Console.Write(prompt);
+        input = Console.ReadLine();
+
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            Console.WriteLine("Please enter a value.");
+        }
+    }
+
+    return input;
+}
+
+// Read an integer from the user with error checking
+static int ReadInteger(string prompt)
+{
+    string? input = "";
+    int number = 0;
+    bool isValid = false;
+
+    while (!isValid)
+    {
+        Console.Write(prompt);
+        input = Console.ReadLine();
+
+        if (int.TryParse(input, out number))
+        {
+            isValid = true;
+        }
+        else
+        {
+            Console.WriteLine("Please enter a valid whole number.");
+        }
+    }
+
+    return number;
+}
+
+// Read a decimal from the user with error checking
+static decimal ReadDecimal(string prompt)
+{
+    string? input = "";
+    decimal number = 0m;
+    bool isValid = false;
+
+    while (!isValid)
+    {
+        Console.Write(prompt);
+        input = Console.ReadLine();
+
+        if (decimal.TryParse(input, out number))
+        {
+            isValid = true;
+        }
+        else
+        {
+            Console.WriteLine("Please enter a valid decimal number.");
+        }
+    }
+
+    return number;
+}
+
+// Read a Boolean from the user with error checking
+static bool ReadBoolean(string prompt)
+{
+    string? input = "";
+    bool value = false;
+    bool isValid = false;
+
+    while (!isValid)
+    {
+        Console.Write(prompt);
+        input = Console.ReadLine();
+
+        if (bool.TryParse(input, out value))
+        {
+            isValid = true;
+        }
+        else
+        {
+            Console.WriteLine("Please enter true or false.");
+        }
+    }
+
+    return value;
+}
+
 // Control the car store loop
 static void ControlLoop()
 {
@@ -81,8 +175,8 @@ static void ControlLoop()
     StoreLogic storeLogic = new StoreLogic();
 
     // Declare and initialize other variables
-    int choice = -1, id = 0, year = 0, numWheels = 0;
-    string make = "", model = "";
+    int choice = -1, id = 0, year = 0, numWheels = 0, mileage = 0;
+    string make = "", model = "", color = "";
     decimal price = 0m, total = 0m;
 
     // Specialty vehicle variables
@@ -145,97 +239,110 @@ static void ControlLoop()
             // Create a vehicle
             case 3:
                 // Read the type of vehicle
-                Console.Write("Enter 1 to create a car, 2 to create a motorcycle, 3 " +
+                choice = ReadInteger("Enter 1 to create a car, 2 to create a motorcycle, 3 " +
                     "to create a pickup, or 4 to create a vehicle: ");
-                choice = int.Parse(Console.ReadLine());
 
                 // Get the common properties for the vehicle
-                // Read in the make of the vehicle
-                Console.Write("Enter the make of the vehicle: ");
-                make = Console.ReadLine();
-
-                // Read the model of the vehicle
-                Console.Write("Enter the model of the vehicle: ");
-                model = Console.ReadLine();
-
-                // Read the year of the vehicle
-                Console.Write("Enter the year of the vehicle: ");
-                year = int.Parse(Console.ReadLine());
-
-                // Read the price of the vehicle
-                Console.Write("Enter the price of the vehicle: ");
-                price = decimal.Parse(Console.ReadLine());
-
-                // Read the number of wheels on the vehicle
-                Console.Write("Enter the number of wheels on the vehicle: ");
-                numWheels = int.Parse(Console.ReadLine());
+                make = ReadRequiredString("Enter the make of the vehicle: ");
+                model = ReadRequiredString("Enter the model of the vehicle: ");
+                year = ReadInteger("Enter the year of the vehicle: ");
+                price = ReadDecimal("Enter the price of the vehicle: ");
+                numWheels = ReadInteger("Enter the number of wheels on the vehicle: ");
+                color = ReadRequiredString("Enter the color of the vehicle: ");
+                mileage = ReadInteger("Enter the mileage of the vehicle: ");
 
                 // Switch statement to read the vehicle-specific properties
                 switch (choice)
                 {
                     // Car
                     case 1:
-                        // Read the convertible status for the car
-                        Console.Write("Enter if the car is a convertible (true/false): ");
-                        isConvertible = bool.Parse(Console.ReadLine());
+                        isConvertible = ReadBoolean("Enter if the car is a convertible (true/false): ");
+                        trunkSize = ReadDecimal("Enter the trunk size of the car in cubic feet: ");
 
-                        // Read the trunk size for the car
-                        Console.Write("Enter the trunk size of the car in cubic feet: ");
-                        trunkSize = decimal.Parse(Console.ReadLine());
-
-                        // Create a new car
-                        vehicle = new CarModel(id, make, model, year, price, numWheels, isConvertible, trunkSize);
+                        vehicle = new CarModel(
+                            id,
+                            make,
+                            model,
+                            year,
+                            price,
+                            numWheels,
+                            color,
+                            mileage,
+                            isConvertible,
+                            trunkSize);
                         break;
 
                     // Motorcycle
                     case 2:
-                        // Read the side car status for the motorcycle
-                        Console.Write("Enter if the motorcycle has a side car (true/false): ");
-                        hasSideCar = bool.Parse(Console.ReadLine());
+                        hasSideCar = ReadBoolean("Enter if the motorcycle has a side car (true/false): ");
+                        seatHeight = ReadDecimal("Enter the seat height of the motorcycle in inches: ");
 
-                        // Read the seat height for the motorcycle
-                        Console.Write("Enter the seat height of the motorcycle in inches: ");
-                        seatHeight = decimal.Parse(Console.ReadLine());
-
-                        // Create a new motorcycle
-                        vehicle = new MotorcycleModel(id, make, model, year, price, numWheels, hasSideCar, seatHeight);
+                        vehicle = new MotorcycleModel(
+                            id,
+                            make,
+                            model,
+                            year,
+                            price,
+                            numWheels,
+                            color,
+                            mileage,
+                            hasSideCar,
+                            seatHeight);
                         break;
 
                     // Pickup
                     case 3:
-                        // Read the bed cover status for the pickup
-                        Console.Write("Enter if the pickup has a bed cover (true/false): ");
-                        hasBedCover = bool.Parse(Console.ReadLine());
+                        hasBedCover = ReadBoolean("Enter if the pickup has a bed cover (true/false): ");
+                        bedSize = ReadDecimal("Enter the bed size of the pickup in cubic feet: ");
 
-                        // Read the bed size for the pickup
-                        Console.Write("Enter the bed size of the pickup in cubic feet: ");
-                        bedSize = decimal.Parse(Console.ReadLine());
-
-                        // Create a new pickup
-                        vehicle = new PickupModel(id, make, model, year, price, numWheels, hasBedCover, bedSize);
+                        vehicle = new PickupModel(
+                            id,
+                            make,
+                            model,
+                            year,
+                            price,
+                            numWheels,
+                            color,
+                            mileage,
+                            hasBedCover,
+                            bedSize);
                         break;
 
                     // Vehicle
+                    case 4:
+                        vehicle = new VehicleModel(id, make, model, year, price, numWheels, color, mileage);
+                        break;
+
+                    // Invalid vehicle type
                     default:
-                        // Create a new vehicle
-                        vehicle = new VehicleModel(id, make, model, year, price, numWheels);
+                        Console.WriteLine("Invalid vehicle type. A standard vehicle will be created.");
+                        vehicle = new VehicleModel(id, make, model, year, price, numWheels, color, mileage);
                         break;
                 }
 
                 // Add the vehicle to the inventory
                 storeLogic.AddVehicleToInventory(vehicle);
 
+                Console.WriteLine("The vehicle has been added to the inventory.");
                 Console.WriteLine();
                 break;
 
             // Add a vehicle to the shopping cart
             case 4:
                 // Get the id of the vehicle from the user
-                Console.Write("Enter the id of the vehicle you want to buy: ");
-                id = int.Parse(Console.ReadLine());
+                id = ReadInteger("Enter the id of the vehicle you want to buy: ");
 
                 // Add the vehicle to the shopping cart
-                storeLogic.AddVehicleToCart(id);
+                int cartCount = storeLogic.AddVehicleToCart(id);
+
+                if (cartCount == -1)
+                {
+                    Console.WriteLine("No vehicle was found with that id.");
+                }
+                else
+                {
+                    Console.WriteLine("The vehicle has been added to the shopping cart.");
+                }
 
                 Console.WriteLine();
                 break;

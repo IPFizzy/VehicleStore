@@ -86,7 +86,7 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
         /// Add a vehicle to the shopping cart based on the vehicle's id.
         /// </summary>
         /// <param name="vehicleId">The id of the vehicle to add to the shopping cart.</param>
-        /// <returns>The number of items in the shopping cart.</returns>
+        /// <returns>The number of items in the shopping cart or -1 if the id is not found.</returns>
         public int AddVehicleToCart(int vehicleId)
         {
             // Loop through the inventory to find the correct vehicle
@@ -97,11 +97,14 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
                 {
                     // If so, add the vehicle to the shopping cart
                     _shoppingCart.Add(_inventory[i]);
+
+                    // Return the number of items in the shopping cart
+                    return _shoppingCart.Count;
                 }
             }
 
-            // Return the number of items in the shopping cart
-            return _shoppingCart.Count;
+            // Return -1 when no matching vehicle id is found
+            return -1;
         }
 
         /// <summary>
@@ -138,7 +141,7 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
 
                                 // Write the car to the file
                                 writer.WriteLine($"Car, {car.Make}, {car.Model}, {car.Year}, {car.Price}, " +
-                                    $"{car.NumWheels}, {car.IsConvertible}, {car.TrunkSize}");
+    $"{car.NumWheels}, {car.Color}, {car.Mileage}, {car.IsConvertible}, {car.TrunkSize}");
                                 break;
 
                             case "MotorcycleModel":
@@ -147,8 +150,8 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
 
                                 // Write the motorcycle to the file
                                 writer.WriteLine($"Motorcycle, {motorcycle.Make}, {motorcycle.Model}, " +
-                                    $"{motorcycle.Year}, {motorcycle.Price}, {motorcycle.NumWheels}, " +
-                                    $"{motorcycle.HasSideCar}, {motorcycle.SeatHeight}");
+    $"{motorcycle.Year}, {motorcycle.Price}, {motorcycle.NumWheels}, " +
+    $"{motorcycle.Color}, {motorcycle.Mileage}, {motorcycle.HasSideCar}, {motorcycle.SeatHeight}");
                                 break;
 
                             case "PickupModel":
@@ -157,13 +160,14 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
 
                                 // Write the pickup to the file
                                 writer.WriteLine($"Pickup, {pickup.Make}, {pickup.Model}, {pickup.Year}, " +
-                                    $"{pickup.Price}, {pickup.NumWheels}, {pickup.HasBedCover}, {pickup.BedSize}");
+    $"{pickup.Price}, {pickup.NumWheels}, {pickup.Color}, {pickup.Mileage}, " +
+    $"{pickup.HasBedCover}, {pickup.BedSize}");
                                 break;
 
                             default:
                                 // Write the vehicle to the file
                                 writer.WriteLine($"Vehicle, {vehicle.Make}, {vehicle.Model}, {vehicle.Year}, " +
-                                    $"{vehicle.Price}, {vehicle.NumWheels}");
+    $"{vehicle.Price}, {vehicle.NumWheels}, {vehicle.Color}, {vehicle.Mileage}");
                                 break;
                         }
                     }
@@ -188,8 +192,8 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
             // Declare and initialize
             string? line = "";
             string[] parts = [];
-            string make = "", model = "";
-            int year = 0, numWheels = 0;
+            string make = "", model = "", color = "";
+            int year = 0, numWheels = 0, mileage = 0;
             decimal price = 0m;
 
             // Specialty vehicle variables
@@ -225,18 +229,33 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
                             // Parse the number of wheels of the vehicle
                             numWheels = ParseInteger(parts[5]);
 
+                            // Get the color of the vehicle
+                            color = parts[6];
+
+                            // Parse the mileage of the vehicle
+                            mileage = ParseInteger(parts[7]);
+
                             // Use the first piece of data to create a switch for the specific model
                             switch (parts[0])
                             {
                                 case "Car":
                                     // Parse the convertible status for the car
-                                    isConvertible = ParseBoolean(parts[6]);
+                                    isConvertible = ParseBoolean(parts[8]);
 
                                     // Parse the trunk size for the car
-                                    trunkSize = ParseDecimal(parts[7]);
+                                    trunkSize = ParseDecimal(parts[9]);
 
                                     // Create a new car using the read properties
-                                    CarModel car = new CarModel(0, make, model, year, price, numWheels, isConvertible,
+                                    CarModel car = new CarModel(
+                                        0,
+                                        make,
+                                        model,
+                                        year,
+                                        price,
+                                        numWheels,
+                                        color,
+                                        mileage,
+                                        isConvertible,
                                         trunkSize);
 
                                     // Add the car to the inventory
@@ -245,14 +264,23 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
 
                                 case "Motorcycle":
                                     // Parse the side car status for the motorcycle
-                                    hasSideCar = ParseBoolean(parts[6]);
+                                    hasSideCar = ParseBoolean(parts[8]);
 
                                     // Parse the seat height for the motorcycle
-                                    seatHeight = ParseDecimal(parts[7]);
+                                    seatHeight = ParseDecimal(parts[9]);
 
                                     // Create a new motorcycle using the read properties
-                                    MotorcycleModel motorcycle = new MotorcycleModel(0, make, model, year, price,
-                                        numWheels, hasSideCar, seatHeight);
+                                    MotorcycleModel motorcycle = new MotorcycleModel(
+                                        0,
+                                        make,
+                                        model,
+                                        year,
+                                        price,
+                                        numWheels,
+                                        color,
+                                        mileage,
+                                        hasSideCar,
+                                        seatHeight);
 
                                     // Add the motorcycle to the inventory
                                     AddVehicleToInventory(motorcycle);
@@ -260,14 +288,23 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
 
                                 case "Pickup":
                                     // Parse the bed cover status for the pickup
-                                    hasBedCover = ParseBoolean(parts[6]);
+                                    hasBedCover = ParseBoolean(parts[8]);
 
                                     // Parse the bed size for the pickup
-                                    bedSize = ParseDecimal(parts[7]);
+                                    bedSize = ParseDecimal(parts[9]);
 
                                     // Create a new pickup using the read properties
-                                    PickupModel pickup = new PickupModel(0, make, model, year, price, numWheels,
-                                        hasBedCover, bedSize);
+                                    PickupModel pickup = new PickupModel(
+                                        0,
+                                        make,
+                                        model,
+                                        year,
+                                        price,
+                                        numWheels,
+                                        color,
+                                        mileage,
+                                        hasBedCover,
+                                        bedSize);
 
                                     // Add the pickup to the inventory
                                     AddVehicleToInventory(pickup);
@@ -275,7 +312,15 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
 
                                 default:
                                     // Create a new vehicle using the read properties
-                                    VehicleModel vehicle = new VehicleModel(0, make, model, year, price, numWheels);
+                                    VehicleModel vehicle = new VehicleModel(
+                                        0,
+                                        make,
+                                        model,
+                                        year,
+                                        price,
+                                        numWheels,
+                                        color,
+                                        mileage);
 
                                     // Add the vehicle to the inventory
                                     AddVehicleToInventory(vehicle);

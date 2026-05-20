@@ -22,6 +22,8 @@ namespace VehicleClassLibrary.Models
         public int Year { get; set; }
         public decimal Price { get; set; }
         public int NumWheels { get; set; }
+        public string Color { get; set; }
+        public int Mileage { get; set; }
 
         /// <summary>
         /// Default constructor for the vehicle model.
@@ -34,6 +36,8 @@ namespace VehicleClassLibrary.Models
             Year = 0;
             Price = 0m;
             NumWheels = 0;
+            Color = "Unknown";
+            Mileage = 0;
         }
 
         /// <summary>
@@ -45,7 +49,7 @@ namespace VehicleClassLibrary.Models
         /// <param name="year">The vehicle year.</param>
         /// <param name="price">The vehicle price.</param>
         /// <param name="numWheels">The number of wheels on the vehicle.</param>
-        public VehicleModel(int id, string make, string model, int year, decimal price, int numWheels)
+        public VehicleModel(int id, string make, string model, int year, decimal price, int numWheels, string color, int mileage)
         {
             Id = id;
             Make = make;
@@ -53,6 +57,8 @@ namespace VehicleClassLibrary.Models
             Year = year;
             Price = price;
             NumWheels = numWheels;
+            Color = color;
+            Mileage = mileage;
         }
 
         /// <summary>
@@ -63,7 +69,8 @@ namespace VehicleClassLibrary.Models
         {
             // Print the vehicle in the following format
             // 1: 2013 Ford Fiesta with 4 wheels - $800.00
-            return $"{Id}: {Year} {Make} {Model} with {NumWheels} wheels - {Price:C2}";
+            return $"{Id}: {Year} {Color} {Make} {Model} with {NumWheels} wheels, " +
+                $"{Mileage} miles - {Price:C2}";
         }
     }
 }

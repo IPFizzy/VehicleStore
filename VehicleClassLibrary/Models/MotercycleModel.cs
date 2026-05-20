@@ -46,8 +46,10 @@ namespace VehicleClassLibrary.Models
             int year,
             decimal price,
             int numWheels,
+            string color,
+            int mileage,
             bool hasSideCar,
-            decimal seatHeight) : base(id, make, model, year, price, numWheels)
+            decimal seatHeight) : base(id, make, model, year, price, numWheels, color, mileage)
         {
             HasSideCar = hasSideCar;
             SeatHeight = seatHeight;
@@ -65,8 +67,8 @@ namespace VehicleClassLibrary.Models
 
             // Print the motorcycle in the following format
             // 1: 2015 Yamaha Bolt with 2 wheels and a 44.1 inch seat with(out) a side car - $8000.00
-            return $"{Id}: {Year} {Make} {Model} with {NumWheels} wheels and a {SeatHeight} " +
-                $"inch seat {sideCar} a side car - {Price:C2}";
+            return $"{Id}: {Year} {Color} {Make} {Model} with {NumWheels} wheels, {Mileage} miles, " +
+                $"and a {SeatHeight} inch seat {sideCar} a side car - {Price:C2}";
         }
     }
 }
