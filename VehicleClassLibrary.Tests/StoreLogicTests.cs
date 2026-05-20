@@ -1,4 +1,13 @@
-﻿using System.Collections.Generic;
+﻿/*
+ * Keon Bushman
+ * CST - 250
+ * 05/19/2026
+ * Vehicle Class Library
+ * Activity 1
+ * Activity 1 Guide
+ */
+
+using System.Collections.Generic;
 using Xunit;
 using VehicleClassLibrary.Models;
 using VehicleClassLibrary.Services.BusinessLogicLayer;
