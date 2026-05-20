@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="G:/My Drive/_Main/School/Grand Canyon University/.CST-250 Programming in C# II/Activity 1/VehicleClassLibrary/VehicleClassLibrary.Tests/VehicleClassLibrary.Tests.csproj" Id="df7b3dd3-3514-4c63-8a02-4cb55644c6ed" />
-  <Project Path="G:/My Drive/_Main/School/Grand Canyon University/.CST-250 Programming in C# II/Activity 1/VehicleClassLibrary/VehicleClassLibrary/VehicleClassLibrary.csproj" />
+  <Project Path="VehicleClassLibrary/VehicleClassLibrary.csproj" />
+  <Project Path="VehicleClassLibrary.Tests/VehicleClassLibrary.Tests.csproj" />
 </Solution>
