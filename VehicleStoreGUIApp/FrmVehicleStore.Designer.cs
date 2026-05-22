@@ -29,13 +29,18 @@
         private void InitializeComponent()
         {
             gbxCreateVehicle = new GroupBox();
+            lblMileageError = new Label();
+            lblColorError = new Label();
+            txtMileage = new TextBox();
+            lblMileage = new Label();
+            txtColor = new TextBox();
+            lblColor = new Label();
             lblWheelsError = new Label();
             lblYearError = new Label();
             lblPriceError = new Label();
             lblModelError = new Label();
             lblMakeError = new Label();
             lblVehicleTypeError = new Label();
-            btnCreate = new Button();
             txtWheels = new TextBox();
             txtPrice = new TextBox();
             txtYear = new TextBox();
@@ -50,6 +55,7 @@
             lblModel = new Label();
             rdoCar = new RadioButton();
             lblMake = new Label();
+            btnCreate = new Button();
             gbxSpecialtyProperties = new GroupBox();
             txtSpecialtyDecimal = new TextBox();
             rdoSpecialtyNo = new RadioButton();
@@ -66,6 +72,9 @@
             btnCheckout = new Button();
             lblTotal = new Label();
             lblTotalAmount = new Label();
+            btnRemoveFromCart = new Button();
+            btnSaveInventory = new Button();
+            btnLoadInventory = new Button();
             gbxCreateVehicle.SuspendLayout();
             gbxSpecialtyProperties.SuspendLayout();
             gbxStoreInventory.SuspendLayout();
@@ -74,13 +83,18 @@
             // 
             // gbxCreateVehicle
             // 
+            gbxCreateVehicle.Controls.Add(lblMileageError);
+            gbxCreateVehicle.Controls.Add(lblColorError);
+            gbxCreateVehicle.Controls.Add(txtMileage);
+            gbxCreateVehicle.Controls.Add(lblMileage);
+            gbxCreateVehicle.Controls.Add(txtColor);
+            gbxCreateVehicle.Controls.Add(lblColor);
             gbxCreateVehicle.Controls.Add(lblWheelsError);
             gbxCreateVehicle.Controls.Add(lblYearError);
             gbxCreateVehicle.Controls.Add(lblPriceError);
             gbxCreateVehicle.Controls.Add(lblModelError);
             gbxCreateVehicle.Controls.Add(lblMakeError);
             gbxCreateVehicle.Controls.Add(lblVehicleTypeError);
-            gbxCreateVehicle.Controls.Add(btnCreate);
             gbxCreateVehicle.Controls.Add(txtWheels);
             gbxCreateVehicle.Controls.Add(txtPrice);
             gbxCreateVehicle.Controls.Add(txtYear);
@@ -97,17 +111,73 @@
             gbxCreateVehicle.Controls.Add(lblMake);
             gbxCreateVehicle.Location = new Point(12, 12);
             gbxCreateVehicle.Name = "gbxCreateVehicle";
-            gbxCreateVehicle.Size = new Size(282, 368);
+            gbxCreateVehicle.Size = new Size(282, 471);
             gbxCreateVehicle.TabIndex = 0;
             gbxCreateVehicle.TabStop = false;
             gbxCreateVehicle.Text = "Create a Vehicle";
+            // 
+            // lblMileageError
+            // 
+            lblMileageError.AutoSize = true;
+            lblMileageError.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblMileageError.ForeColor = Color.Red;
+            lblMileageError.Location = new Point(90, 431);
+            lblMileageError.Name = "lblMileageError";
+            lblMileageError.Size = new Size(161, 15);
+            lblMileageError.TabIndex = 20;
+            lblMileageError.Text = "Please enter a valid mileage";
+            // 
+            // lblColorError
+            // 
+            lblColorError.AutoSize = true;
+            lblColorError.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblColorError.ForeColor = Color.Red;
+            lblColorError.Location = new Point(90, 376);
+            lblColorError.Name = "lblColorError";
+            lblColorError.Size = new Size(116, 15);
+            lblColorError.TabIndex = 19;
+            lblColorError.Text = "Please enter a color";
+            // 
+            // txtMileage
+            // 
+            txtMileage.Location = new Point(90, 405);
+            txtMileage.Name = "txtMileage";
+            txtMileage.Size = new Size(125, 23);
+            txtMileage.TabIndex = 18;
+            txtMileage.Leave += TxtMileageLeaveEH;
+            // 
+            // lblMileage
+            // 
+            lblMileage.AutoSize = true;
+            lblMileage.Location = new Point(6, 408);
+            lblMileage.Name = "lblMileage";
+            lblMileage.Size = new Size(52, 15);
+            lblMileage.TabIndex = 17;
+            lblMileage.Text = "Mileage:";
+            // 
+            // txtColor
+            // 
+            txtColor.Location = new Point(90, 350);
+            txtColor.Name = "txtColor";
+            txtColor.Size = new Size(125, 23);
+            txtColor.TabIndex = 16;
+            txtColor.Leave += TxtColorLeaveEH;
+            // 
+            // lblColor
+            // 
+            lblColor.AutoSize = true;
+            lblColor.Location = new Point(6, 353);
+            lblColor.Name = "lblColor";
+            lblColor.Size = new Size(39, 15);
+            lblColor.TabIndex = 15;
+            lblColor.Text = "Color:";
             // 
             // lblWheelsError
             // 
             lblWheelsError.AutoSize = true;
             lblWheelsError.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblWheelsError.ForeColor = Color.Red;
-            lblWheelsError.Location = new Point(40, 320);
+            lblWheelsError.Location = new Point(90, 320);
             lblWheelsError.Name = "lblWheelsError";
             lblWheelsError.Size = new Size(186, 15);
             lblWheelsError.TabIndex = 13;
@@ -168,22 +238,13 @@
             lblVehicleTypeError.TabIndex = 8;
             lblVehicleTypeError.Text = "Please Choose a Vehicle Type";
             // 
-            // btnCreate
-            // 
-            btnCreate.Location = new Point(71, 339);
-            btnCreate.Name = "btnCreate";
-            btnCreate.Size = new Size(75, 23);
-            btnCreate.TabIndex = 1;
-            btnCreate.Text = "Create";
-            btnCreate.UseVisualStyleBackColor = true;
-            btnCreate.Click += BtnCreateClickEH;
-            // 
             // txtWheels
             // 
             txtWheels.Location = new Point(90, 294);
             txtWheels.Name = "txtWheels";
             txtWheels.Size = new Size(125, 23);
             txtWheels.TabIndex = 2;
+            txtWheels.Leave += TxtWheelsLeaveEH;
             // 
             // txtPrice
             // 
@@ -191,6 +252,7 @@
             txtPrice.Name = "txtPrice";
             txtPrice.Size = new Size(125, 23);
             txtPrice.TabIndex = 3;
+            txtPrice.Leave += TxtPriceLeaveEH;
             // 
             // txtYear
             // 
@@ -198,6 +260,7 @@
             txtYear.Name = "txtYear";
             txtYear.Size = new Size(125, 23);
             txtYear.TabIndex = 4;
+            txtYear.Leave += TxtYearLeaveEH;
             // 
             // txtModel
             // 
@@ -205,6 +268,7 @@
             txtModel.Name = "txtModel";
             txtModel.Size = new Size(125, 23);
             txtModel.TabIndex = 5;
+            txtModel.Leave += TxtModelLeaveEH;
             // 
             // lblWheels
             // 
@@ -254,6 +318,7 @@
             txtMake.Name = "txtMake";
             txtMake.Size = new Size(125, 23);
             txtMake.TabIndex = 1;
+            txtMake.Leave += TxtMakeLeaveEH;
             // 
             // lblYear
             // 
@@ -306,6 +371,16 @@
             lblMake.TabIndex = 1;
             lblMake.Text = "Make:";
             // 
+            // btnCreate
+            // 
+            btnCreate.Location = new Point(361, 518);
+            btnCreate.Name = "btnCreate";
+            btnCreate.Size = new Size(75, 23);
+            btnCreate.TabIndex = 1;
+            btnCreate.Text = "Create";
+            btnCreate.UseVisualStyleBackColor = true;
+            btnCreate.Click += BtnCreateClickEH;
+            // 
             // gbxSpecialtyProperties
             // 
             gbxSpecialtyProperties.Controls.Add(txtSpecialtyDecimal);
@@ -315,7 +390,7 @@
             gbxSpecialtyProperties.Controls.Add(lblSpecialtyDecimal);
             gbxSpecialtyProperties.Controls.Add(rdoSpecialtyYes);
             gbxSpecialtyProperties.Controls.Add(lblSpecialtyBoolean);
-            gbxSpecialtyProperties.Location = new Point(12, 386);
+            gbxSpecialtyProperties.Location = new Point(12, 489);
             gbxSpecialtyProperties.Name = "gbxSpecialtyProperties";
             gbxSpecialtyProperties.Size = new Size(282, 159);
             gbxSpecialtyProperties.TabIndex = 1;
@@ -328,6 +403,7 @@
             txtSpecialtyDecimal.Name = "txtSpecialtyDecimal";
             txtSpecialtyDecimal.Size = new Size(100, 23);
             txtSpecialtyDecimal.TabIndex = 2;
+            txtSpecialtyDecimal.Leave += TxtSpecialtyDecimalLeaveEH;
             // 
             // rdoSpecialtyNo
             // 
@@ -396,7 +472,7 @@
             gbxStoreInventory.Controls.Add(lstInventory);
             gbxStoreInventory.Location = new Point(300, 21);
             gbxStoreInventory.Name = "gbxStoreInventory";
-            gbxStoreInventory.Size = new Size(200, 417);
+            gbxStoreInventory.Size = new Size(383, 427);
             gbxStoreInventory.TabIndex = 2;
             gbxStoreInventory.TabStop = false;
             gbxStoreInventory.Text = "Store Inventory";
@@ -406,14 +482,14 @@
             lstInventory.FormattingEnabled = true;
             lstInventory.Location = new Point(6, 22);
             lstInventory.Name = "lstInventory";
-            lstInventory.Size = new Size(188, 379);
+            lstInventory.Size = new Size(371, 394);
             lstInventory.TabIndex = 3;
             // 
             // btnAddCart
             // 
-            btnAddCart.Location = new Point(506, 203);
+            btnAddCart.Location = new Point(689, 203);
             btnAddCart.Name = "btnAddCart";
-            btnAddCart.Size = new Size(75, 44);
+            btnAddCart.Size = new Size(75, 38);
             btnAddCart.TabIndex = 3;
             btnAddCart.Text = "Add to Cart";
             btnAddCart.UseVisualStyleBackColor = true;
@@ -422,9 +498,9 @@
             // gbxShoppingCart
             // 
             gbxShoppingCart.Controls.Add(lstShoppingCart);
-            gbxShoppingCart.Location = new Point(587, 21);
+            gbxShoppingCart.Location = new Point(770, 21);
             gbxShoppingCart.Name = "gbxShoppingCart";
-            gbxShoppingCart.Size = new Size(200, 417);
+            gbxShoppingCart.Size = new Size(412, 427);
             gbxShoppingCart.TabIndex = 4;
             gbxShoppingCart.TabStop = false;
             gbxShoppingCart.Text = "Shopping Cart";
@@ -434,12 +510,12 @@
             lstShoppingCart.FormattingEnabled = true;
             lstShoppingCart.Location = new Point(6, 22);
             lstShoppingCart.Name = "lstShoppingCart";
-            lstShoppingCart.Size = new Size(188, 379);
+            lstShoppingCart.Size = new Size(400, 394);
             lstShoppingCart.TabIndex = 3;
             // 
             // btnCheckout
             // 
-            btnCheckout.Location = new Point(648, 444);
+            btnCheckout.Location = new Point(831, 470);
             btnCheckout.Name = "btnCheckout";
             btnCheckout.Size = new Size(75, 23);
             btnCheckout.TabIndex = 5;
@@ -450,7 +526,7 @@
             // lblTotal
             // 
             lblTotal.AutoSize = true;
-            lblTotal.Location = new Point(648, 470);
+            lblTotal.Location = new Point(831, 496);
             lblTotal.Name = "lblTotal";
             lblTotal.Size = new Size(36, 15);
             lblTotal.TabIndex = 6;
@@ -459,17 +535,50 @@
             // lblTotalAmount
             // 
             lblTotalAmount.AutoSize = true;
-            lblTotalAmount.Location = new Point(690, 470);
+            lblTotalAmount.Location = new Point(873, 496);
             lblTotalAmount.Name = "lblTotalAmount";
             lblTotalAmount.Size = new Size(19, 15);
             lblTotalAmount.TabIndex = 7;
             lblTotalAmount.Text = "$0";
             // 
+            // btnRemoveFromCart
+            // 
+            btnRemoveFromCart.Location = new Point(689, 261);
+            btnRemoveFromCart.Name = "btnRemoveFromCart";
+            btnRemoveFromCart.Size = new Size(75, 38);
+            btnRemoveFromCart.TabIndex = 8;
+            btnRemoveFromCart.Text = "Remove from Cart";
+            btnRemoveFromCart.UseVisualStyleBackColor = true;
+            btnRemoveFromCart.Click += BtnRemoveFromCartClickEH;
+            // 
+            // btnSaveInventory
+            // 
+            btnSaveInventory.Location = new Point(306, 454);
+            btnSaveInventory.Name = "btnSaveInventory";
+            btnSaveInventory.Size = new Size(75, 39);
+            btnSaveInventory.TabIndex = 9;
+            btnSaveInventory.Text = "Save Inventory";
+            btnSaveInventory.UseVisualStyleBackColor = true;
+            btnSaveInventory.Click += BtnSaveInventoryClickEH;
+            // 
+            // btnLoadInventory
+            // 
+            btnLoadInventory.Location = new Point(419, 454);
+            btnLoadInventory.Name = "btnLoadInventory";
+            btnLoadInventory.Size = new Size(75, 39);
+            btnLoadInventory.TabIndex = 10;
+            btnLoadInventory.Text = "Load Inventory";
+            btnLoadInventory.UseVisualStyleBackColor = true;
+            btnLoadInventory.Click += BtnLoadInventoryClickEH;
+            // 
             // FrmVehicleStore
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 615);
+            ClientSize = new Size(1193, 658);
+            Controls.Add(btnLoadInventory);
+            Controls.Add(btnSaveInventory);
+            Controls.Add(btnRemoveFromCart);
             Controls.Add(lblTotalAmount);
             Controls.Add(lblTotal);
             Controls.Add(btnCheckout);
@@ -477,6 +586,7 @@
             Controls.Add(btnAddCart);
             Controls.Add(gbxStoreInventory);
             Controls.Add(gbxSpecialtyProperties);
+            Controls.Add(btnCreate);
             Controls.Add(gbxCreateVehicle);
             Name = "FrmVehicleStore";
             Text = "Vehicle Store";
@@ -530,5 +640,14 @@
         private Label lblMakeError;
         private Label lblSpecialtyDecimalError;
         private Label lblSpecialtyBooleanError;
+        private Label lblColorError;
+        private TextBox txtMileage;
+        private Label lblMileage;
+        private TextBox txtColor;
+        private Label lblColor;
+        private Label lblMileageError;
+        private Button btnRemoveFromCart;
+        private Button btnSaveInventory;
+        private Button btnLoadInventory;
     }
 }

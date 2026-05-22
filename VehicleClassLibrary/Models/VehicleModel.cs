@@ -72,5 +72,37 @@ namespace VehicleClassLibrary.Models
             return $"{Id}: {Year} {Color} {Make} {Model} with {NumWheels} wheels, " +
                 $"{Mileage} miles - {Price:C2}";
         }
+
+        /// <summary>
+        /// Compare vehicle objects to prevent duplicate entries.
+        /// </summary>
+        /// <param name="obj">The object being compared.</param>
+        /// <returns>True if the vehicles match.</returns>
+        public override bool Equals(object? obj)
+        {
+            // Make sure the object is a VehicleModel
+            if (obj is not VehicleModel vehicle)
+            {
+                return false;
+            }
+
+            // Compare the vehicle properties
+            return Make == vehicle.Make &&
+                Model == vehicle.Model &&
+                Year == vehicle.Year &&
+                Price == vehicle.Price &&
+                NumWheels == vehicle.NumWheels &&
+                Color == vehicle.Color &&
+                Mileage == vehicle.Mileage;
+        }
+
+        /// <summary>
+        /// Gets the hash code for the vehicle object.
+        /// </summary>
+        /// <returns>The hash code.</returns>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Make, Model, Year, Price, NumWheels, Color, Mileage);
+        }
     }
 }

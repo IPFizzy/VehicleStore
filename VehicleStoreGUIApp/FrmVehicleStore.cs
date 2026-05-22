@@ -18,6 +18,7 @@ namespace VehicleStoreGUIApp
         string currentVehicleType;
         bool isVehicleTypeValid = false, isMakeValid = false, isModelValid = false,
             isYearValid = false, isPriceValid = false, isWheelsValid = false,
+            isColorValid = false, isMileageValid = false,
             isSpecialtyBooleanValid = false, isSpecialtyDecimalValid = false;
         //Create a new vehicle store logic variable
         private StoreLogic _storeLogic;
@@ -40,6 +41,8 @@ namespace VehicleStoreGUIApp
             lblYearError.Visible = false;
             lblPriceError.Visible = false;
             lblWheelsError.Visible = false;
+            lblColorError.Visible = false;
+            lblMileageError.Visible = false;
             lblSpecialtyBooleanError.Visible = false;
             lblSpecialtyDecimalError.Visible = false;
             // Initialize the store logic variable
@@ -238,6 +241,67 @@ namespace VehicleStoreGUIApp
         }
 
         /// <summary>
+        /// Validate the color textbox.
+        /// </summary>
+        /// <returns>The color entered by the user.</returns>
+        private string ValidateTxtColor()
+        {
+            // Test for a null/empty textbox
+            if (string.IsNullOrEmpty(txtColor.Text))
+            {
+                lblColorError.Visible = true;
+
+                // Set the flag
+                isColorValid = false;
+            }
+            else
+            {
+                lblColorError.Visible = false;
+
+                // Clear the flag
+                isColorValid = true;
+            }
+
+            // Return the text from the textbox
+            return txtColor.Text;
+        }
+
+        /// <summary>
+        /// Validate the mileage textbox.
+        /// </summary>
+        /// <returns>The mileage entered by the user.</returns>
+        private int ValidateTxtMileage()
+        {
+            // Declare and initialize
+            int mileageValue = -1;
+
+            // Test for a null/empty textbox
+            if (string.IsNullOrEmpty(txtMileage.Text))
+            {
+                lblMileageError.Visible = true;
+
+                // Set the flag
+                isMileageValid = false;
+            }
+            else
+            {
+                lblMileageError.Visible = false;
+
+                // Attempt to parse the textbox value
+                isMileageValid = int.TryParse(txtMileage.Text, out mileageValue);
+
+                // If the parse failed, show the error message
+                if (!isMileageValid)
+                {
+                    lblMileageError.Visible = true;
+                }
+            }
+
+            // Return the mileage value
+            return mileageValue;
+        }
+
+        /// <summary>
         /// Validate that the user has selected a specialty boolean.
         /// </summary>
         /// <returns>The specialty boolean value selected by the user.</returns>
@@ -328,6 +392,94 @@ namespace VehicleStoreGUIApp
         {
             // Validate the make textbox
             ValidateTxtMake();
+        }
+
+        /// <summary>
+        /// Leave event handler to validate input.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TxtModelLeaveEH(object sender, EventArgs e)
+        {
+            // Validate the model textbox
+            ValidateTxtModel();
+        }
+
+        /// <summary>
+        /// Leave event handler to validate input.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TxtYearLeaveEH(object sender, EventArgs e)
+        {
+            // Validate the year textbox
+            ValidateTxtYear();
+        }
+
+        /// <summary>
+        /// Leave event handler to validate input.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TxtPriceLeaveEH(object sender, EventArgs e)
+        {
+            // Validate the price textbox
+            ValidateTxtPrice();
+        }
+
+        /// <summary>
+        /// Leave event handler to validate input.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TxtWheelsLeaveEH(object sender, EventArgs e)
+        {
+            // Validate the wheels textbox
+            ValidateTxtWheels();
+        }
+
+        /// <summary>
+        /// Leave event handler to validate input.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TxtColorLeaveEH(object sender, EventArgs e)
+        {
+            // Validate the color textbox
+            ValidateTxtColor();
+        }
+
+        /// <summary>
+        /// Leave event handler to validate input.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TxtMileageLeaveEH(object sender, EventArgs e)
+        {
+            // Validate the mileage textbox
+            ValidateTxtMileage();
+        }
+
+        /// <summary>
+        /// Leave event handler to validate input.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TxtSpecialtyDecimalLeaveEH(object sender, EventArgs e)
+        {
+            // Validate the specialty decimal textbox
+            ValidateSpecialtyDecimal();
+        }
+
+        /// <summary>
+        /// Click event handler to validate input.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RdoSpecialtyBooleanClickEH(object sender, EventArgs e)
+        {
+            // Validate the specialty boolean
+            ValidateSpecialtyBoolean();
         }
 
         /// <summary>
@@ -430,14 +582,34 @@ namespace VehicleStoreGUIApp
         }
 
         /// <summary>
-        /// Click event handler to validate input.
+        /// Click event handler for the save inventory button.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void RdoSpecialtyBooleanClickEH(object sender, EventArgs e)
+        private void BtnSaveInventoryClickEH(object sender, EventArgs e)
         {
-            // Validate the specialty boolean
-            ValidateSpecialtyBoolean();
+            // Save the inventory to the text file
+            _storeLogic.WriteInventory();
+
+            // Show a message to the user
+            MessageBox.Show("The inventory has been saved.");
+        }
+
+        /// <summary>
+        /// Click event handler for the load inventory button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnLoadInventoryClickEH(object sender, EventArgs e)
+        {
+            // Load the inventory from the text file
+            _storeLogic.ReadInventory();
+
+            // Refresh the inventory list
+            _inventoryBindingSource.ResetBindings(false);
+
+            // Show a message to the user
+            MessageBox.Show("The inventory has been loaded.");
         }
 
         /// <summary>
@@ -449,8 +621,8 @@ namespace VehicleStoreGUIApp
         {
             // Declare and initialize variables
             int id = 0;
-            string make = "", model = "";
-            int year = -1, wheels = -1;
+            string make = "", model = "", color = "";
+            int year = -1, wheels = -1, mileage = -1;
             decimal price = -1m, specialtyDecimal = -1m;
             bool specialtyBoolean = false;
             VehicleModel vehicle;
@@ -462,13 +634,15 @@ namespace VehicleStoreGUIApp
             year = ValidateTxtYear();
             price = ValidateTxtPrice();
             wheels = ValidateTxtWheels();
+            color = ValidateTxtColor();
+            mileage = ValidateTxtMileage();
             specialtyBoolean = ValidateSpecialtyBoolean();
             specialtyDecimal = ValidateSpecialtyDecimal();
 
             // Check the state of the flags
             if (isVehicleTypeValid && isMakeValid && isModelValid && isYearValid &&
-                isPriceValid && isWheelsValid && isSpecialtyBooleanValid &&
-                isSpecialtyDecimalValid)
+                isPriceValid && isWheelsValid && isColorValid && isMileageValid &&
+                isSpecialtyBooleanValid && isSpecialtyDecimalValid)
             {
                 switch (currentVehicleType)
                 {
@@ -481,8 +655,8 @@ namespace VehicleStoreGUIApp
                             year,
                             price,
                             wheels,
-                            "Unknown",
-                            0,
+                            color,
+                            mileage,
                             specialtyBoolean,
                             specialtyDecimal);
                         break;
@@ -496,8 +670,8 @@ namespace VehicleStoreGUIApp
                             year,
                             price,
                             wheels,
-                            "Unknown",
-                            0,
+                            color,
+                            mileage,
                             specialtyBoolean,
                             specialtyDecimal);
                         break;
@@ -511,23 +685,28 @@ namespace VehicleStoreGUIApp
                             year,
                             price,
                             wheels,
-                            "Unknown",
-                            0,
+                            color,
+                            mileage,
                             specialtyBoolean,
                             specialtyDecimal);
                         break;
 
                     default:
                         // Create a new vehicle
-                        vehicle = new VehicleModel(id, make, model, year, price, wheels, "Unknown", 0);
+                        vehicle = new VehicleModel(id, make, model, year, price, wheels, color, mileage);
                         break;
                 }
 
-                // Add the vehicle to the inventory
-                _storeLogic.AddVehicleToInventory(vehicle);
+                int newVehicleId = _storeLogic.AddVehicleToInventory(vehicle);
 
-                // Show the user a success message
-                MessageBox.Show($"The following vehicle has been added to the inventory:\n{vehicle}");
+                if (newVehicleId == -1)
+                {
+                    MessageBox.Show("This vehicle is already in the inventory.");
+                }
+                else
+                {
+                    MessageBox.Show($"The following vehicle has been added to the inventory:\n{vehicle}");
+                }
 
                 // Clear the input fields
                 rdoCar.Checked = false;
@@ -539,6 +718,8 @@ namespace VehicleStoreGUIApp
                 txtYear.Clear();
                 txtPrice.Clear();
                 txtWheels.Clear();
+                txtColor.Clear();
+                txtMileage.Clear();
                 rdoSpecialtyYes.Checked = false;
                 rdoSpecialtyNo.Checked = false;
                 txtSpecialtyDecimal.Clear();
@@ -568,6 +749,29 @@ namespace VehicleStoreGUIApp
             {
                 // Tell the user to select a vehicle before adding to the cart
                 MessageBox.Show("Please select a vehicle from the inventory first.");
+            }
+        }
+
+        /// <summary>
+        /// Click event handler for the remove from cart button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnRemoveFromCartClickEH(object sender, EventArgs e)
+        {
+            // Make sure a vehicle has been selected from the shopping cart list
+            if (lstShoppingCart.SelectedItem is VehicleModel vehicle)
+            {
+                // Remove the selected vehicle from the shopping cart
+                _storeLogic.RemoveVehicleFromCart(vehicle);
+
+                // Reset the bindings for the shopping cart binding source
+                _shoppingCartBindingSource.ResetBindings(false);
+            }
+            else
+            {
+                // Tell the user to select a vehicle before removing it
+                MessageBox.Show("Please select a vehicle from the shopping cart first.");
             }
         }
 

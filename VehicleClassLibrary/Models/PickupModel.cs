@@ -70,5 +70,33 @@ namespace VehicleClassLibrary.Models
             return $"{Id}: {Year} {Color} {Make} {Model} with {NumWheels} wheels, {Mileage} miles, " +
                 $"and a {BedSize} cubic foot bed {bedCover} a bed cover - {Price:C2}";
         }
+
+        /// <summary>
+        /// Compare pickup objects to prevent duplicate entries.
+        /// </summary>
+        /// <param name="obj">The object being compared.</param>
+        /// <returns>True if the pickups match.</returns>
+        public override bool Equals(object? obj)
+        {
+            // Make sure the object is a PickupModel
+            if (obj is not PickupModel pickup)
+            {
+                return false;
+            }
+
+            // Compare base vehicle and pickup properties
+            return base.Equals(obj) &&
+                HasBedCover == pickup.HasBedCover &&
+                BedSize == pickup.BedSize;
+        }
+
+        /// <summary>
+        /// Gets the hash code for the pickup object.
+        /// </summary>
+        /// <returns>The hash code.</returns>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(base.GetHashCode(), HasBedCover, BedSize);
+        }
     }
 }

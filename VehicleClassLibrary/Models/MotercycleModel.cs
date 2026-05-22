@@ -70,5 +70,33 @@ namespace VehicleClassLibrary.Models
             return $"{Id}: {Year} {Color} {Make} {Model} with {NumWheels} wheels, {Mileage} miles, " +
                 $"and a {SeatHeight} inch seat {sideCar} a side car - {Price:C2}";
         }
+
+        /// <summary>
+        /// Compare motorcycle objects to prevent duplicate entries.
+        /// </summary>
+        /// <param name="obj">The object being compared.</param>
+        /// <returns>True if the motorcycles match.</returns>
+        public override bool Equals(object? obj)
+        {
+            // Make sure the object is a MotorcycleModel
+            if (obj is not MotorcycleModel motorcycle)
+            {
+                return false;
+            }
+
+            // Compare base vehicle and motorcycle properties
+            return base.Equals(obj) &&
+                HasSideCar == motorcycle.HasSideCar &&
+                SeatHeight == motorcycle.SeatHeight;
+        }
+
+        /// <summary>
+        /// Gets the hash code for the motorcycle object.
+        /// </summary>
+        /// <returns>The hash code.</returns>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(base.GetHashCode(), HasSideCar, SeatHeight);
+        }
     }
 }

@@ -69,9 +69,15 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
         /// Adds a vehicle to the inventory.
         /// </summary>
         /// <param name="vehicle">The vehicle being added to the inventory.</param>
-        /// <returns>The id of the added vehicle.</returns>
+        /// <returns>The id of the added vehicle or -1 if the vehicle is a duplicate.</returns>
         public int AddVehicleToInventory(VehicleModel vehicle)
         {
+            // Check for a duplicate vehicle before adding it
+            if (_inventory.Contains(vehicle))
+            {
+                return -1;
+            }
+
             // Set the vehicle id based on the inventory count
             vehicle.Id = _inventory.Count + 1;
 
@@ -105,6 +111,17 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
 
             // Return -1 when no matching vehicle id is found
             return -1;
+        }
+
+        /// <summary>
+        /// Remove a vehicle from the shopping cart.
+        /// </summary>
+        /// <param name="vehicle">The vehicle to remove.</param>
+        /// <returns>True if the vehicle was removed.</returns>
+        public bool RemoveVehicleFromCart(VehicleModel vehicle)
+        {
+            // Remove the vehicle from the shopping cart
+            return _shoppingCart.Remove(vehicle);
         }
 
         /// <summary>
@@ -195,6 +212,9 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
             string make = "", model = "", color = "";
             int year = 0, numWheels = 0, mileage = 0;
             decimal price = 0m;
+
+            // Clear the current inventory before loading from the text file
+            _inventory.Clear();
 
             // Specialty vehicle variables
             bool isConvertible = false, hasSideCar = false, hasBedCover = false;

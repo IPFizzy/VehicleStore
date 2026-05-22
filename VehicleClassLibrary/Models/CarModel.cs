@@ -71,5 +71,33 @@ namespace VehicleClassLibrary.Models
             return $"{Id}: {Year} {Color} {Make} {Model} with {NumWheels} wheels, {Mileage} miles, " +
                 $"and a {TrunkSize} cubic foot trunk {convertible} a convertible top - {Price:C2}";
         }
+
+        /// <summary>
+        /// Compare car objects to prevent duplicate entries.
+        /// </summary>
+        /// <param name="obj">The object being compared.</param>
+        /// <returns>True if the cars match.</returns>
+        public override bool Equals(object? obj)
+        {
+            // Make sure the object is a CarModel
+            if (obj is not CarModel car)
+            {
+                return false;
+            }
+
+            // Compare base vehicle and car properties
+            return base.Equals(obj) &&
+                IsConvertible == car.IsConvertible &&
+                TrunkSize == car.TrunkSize;
+        }
+
+        /// <summary>
+        /// Gets the hash code for the car object.
+        /// </summary>
+        /// <returns>The hash code.</returns>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(base.GetHashCode(), IsConvertible, TrunkSize);
+        }
     }
 }
