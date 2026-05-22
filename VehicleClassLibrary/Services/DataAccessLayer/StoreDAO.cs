@@ -1,7 +1,7 @@
 ﻿/*
  * Keon Bushman
  * CST - 250
- * 05/19/2026
+ * 05/24/2026
  * Vehicle Class Library
  * Activity 1
  * Activity 1 Guide
@@ -141,7 +141,7 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
 
                                 // Write the car to the file
                                 writer.WriteLine($"Car, {car.Make}, {car.Model}, {car.Year}, {car.Price}, " +
-    $"{car.NumWheels}, {car.Color}, {car.Mileage}, {car.IsConvertible}, {car.TrunkSize}");
+                                    $"{car.NumWheels}, {car.Color}, {car.Mileage}, {car.IsConvertible}, {car.TrunkSize}");
                                 break;
 
                             case "MotorcycleModel":
@@ -150,8 +150,8 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
 
                                 // Write the motorcycle to the file
                                 writer.WriteLine($"Motorcycle, {motorcycle.Make}, {motorcycle.Model}, " +
-    $"{motorcycle.Year}, {motorcycle.Price}, {motorcycle.NumWheels}, " +
-    $"{motorcycle.Color}, {motorcycle.Mileage}, {motorcycle.HasSideCar}, {motorcycle.SeatHeight}");
+                                    $"{motorcycle.Year}, {motorcycle.Price}, {motorcycle.NumWheels}, " +
+                                        $"{motorcycle.Color}, {motorcycle.Mileage}, {motorcycle.HasSideCar}, {motorcycle.SeatHeight}");
                                 break;
 
                             case "PickupModel":
@@ -160,14 +160,14 @@ namespace VehicleClassLibrary.Services.DataAccessLayer
 
                                 // Write the pickup to the file
                                 writer.WriteLine($"Pickup, {pickup.Make}, {pickup.Model}, {pickup.Year}, " +
-    $"{pickup.Price}, {pickup.NumWheels}, {pickup.Color}, {pickup.Mileage}, " +
-    $"{pickup.HasBedCover}, {pickup.BedSize}");
+                                    $"{pickup.Price}, {pickup.NumWheels}, {pickup.Color}, {pickup.Mileage}, " +
+                                        $"{pickup.HasBedCover}, {pickup.BedSize}");
                                 break;
 
                             default:
                                 // Write the vehicle to the file
                                 writer.WriteLine($"Vehicle, {vehicle.Make}, {vehicle.Model}, {vehicle.Year}, " +
-    $"{vehicle.Price}, {vehicle.NumWheels}, {vehicle.Color}, {vehicle.Mileage}");
+                                    $"{vehicle.Price}, {vehicle.NumWheels}, {vehicle.Color}, {vehicle.Mileage}");
                                 break;
                         }
                     }

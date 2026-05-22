@@ -2,4 +2,5 @@
   <Project Path="VehicleClassLibrary.Tests/VehicleClassLibrary.Tests.csproj" />
   <Project Path="VehicleClassLibrary/VehicleClassLibrary.csproj" />
   <Project Path="VehicleStoreConsoleApp/VehicleStoreConsoleApp.csproj" Id="2e97a4d5-d60c-4747-b3be-9ba6a49126f8" />
+  <Project Path="VehicleStoreGUIApp/VehicleStoreGUIApp.csproj" Id="b448b304-3fe0-407a-8c30-deeaf2153249" />
 </Solution>
