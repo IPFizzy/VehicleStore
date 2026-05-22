@@ -581,7 +581,7 @@ namespace VehicleStoreGUIApp
             // Checkout the user and save the total
             decimal total = _storeLogic.Checkout();
             // Display the total with a currency format
-            lblTotal.Text = total.ToString("C");
+            lblTotalAmount.Text = total.ToString("C");
             // Reset the bindings for the shopping cart binding source
             _shoppingCartBindingSource.ResetBindings(false);
         }
