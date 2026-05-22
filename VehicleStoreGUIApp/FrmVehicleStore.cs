@@ -547,5 +547,43 @@ namespace VehicleStoreGUIApp
                 _inventoryBindingSource.ResetBindings(false);
             }
         }
+
+        /// <summary>
+        /// Click event handler for the add to cart button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnAddToCartClickEH(object sender, EventArgs e)
+        {
+            // Make sure a vehicle has been selected from the inventory list
+            if (lstInventory.SelectedItem is VehicleModel vehicle)
+            {
+                // Add the selected vehicle to the shopping cart
+                _storeLogic.AddVehicleToCart(vehicle.Id);
+
+                // Reset the bindings for the shopping cart binding source
+                _shoppingCartBindingSource.ResetBindings(false);
+            }
+            else
+            {
+                // Tell the user to select a vehicle before adding to the cart
+                MessageBox.Show("Please select a vehicle from the inventory first.");
+            }
+        }
+
+        /// <summary>
+        /// Click event handler for the checkout button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnCheckoutClickEH(object sender, EventArgs e)
+        {
+            // Checkout the user and save the total
+            decimal total = _storeLogic.Checkout();
+            // Display the total with a currency format
+            lblTotal.Text = total.ToString("C");
+            // Reset the bindings for the shopping cart binding source
+            _shoppingCartBindingSource.ResetBindings(false);
+        }
     }
 }

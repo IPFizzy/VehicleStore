@@ -417,6 +417,7 @@
             btnAddCart.TabIndex = 3;
             btnAddCart.Text = "Add to Cart";
             btnAddCart.UseVisualStyleBackColor = true;
+            btnAddCart.Click += BtnAddToCartClickEH;
             // 
             // gbxShoppingCart
             // 
@@ -444,6 +445,7 @@
             btnCheckout.TabIndex = 5;
             btnCheckout.Text = "Checkout";
             btnCheckout.UseVisualStyleBackColor = true;
+            btnCheckout.Click += BtnCheckoutClickEH;
             // 
             // lblTotal
             // 
