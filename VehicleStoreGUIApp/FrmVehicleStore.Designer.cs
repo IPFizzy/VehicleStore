@@ -43,7 +43,7 @@
             lblWheels = new Label();
             lblPrice = new Label();
             rdoVehicle = new RadioButton();
-            rdoMotercycle = new RadioButton();
+            rdoMotorcycle = new RadioButton();
             txtMake = new TextBox();
             lblYear = new Label();
             rdoPickup = new RadioButton();
@@ -88,7 +88,7 @@
             gbxCreateVehicle.Controls.Add(lblWheels);
             gbxCreateVehicle.Controls.Add(lblPrice);
             gbxCreateVehicle.Controls.Add(rdoVehicle);
-            gbxCreateVehicle.Controls.Add(rdoMotercycle);
+            gbxCreateVehicle.Controls.Add(rdoMotorcycle);
             gbxCreateVehicle.Controls.Add(txtMake);
             gbxCreateVehicle.Controls.Add(lblYear);
             gbxCreateVehicle.Controls.Add(rdoPickup);
@@ -97,7 +97,7 @@
             gbxCreateVehicle.Controls.Add(lblMake);
             gbxCreateVehicle.Location = new Point(12, 12);
             gbxCreateVehicle.Name = "gbxCreateVehicle";
-            gbxCreateVehicle.Size = new Size(232, 368);
+            gbxCreateVehicle.Size = new Size(282, 368);
             gbxCreateVehicle.TabIndex = 0;
             gbxCreateVehicle.TabStop = false;
             gbxCreateVehicle.Text = "Create a Vehicle";
@@ -176,6 +176,7 @@
             btnCreate.TabIndex = 1;
             btnCreate.Text = "Create";
             btnCreate.UseVisualStyleBackColor = true;
+            btnCreate.Click += BtnCreateClickEH;
             // 
             // txtWheels
             // 
@@ -233,17 +234,19 @@
             rdoVehicle.TabStop = true;
             rdoVehicle.Text = "Vehicle";
             rdoVehicle.UseVisualStyleBackColor = true;
+            rdoVehicle.Click += RdoVehicleClickEH;
             // 
-            // rdoMotercycle
+            // rdoMotorcycle
             // 
-            rdoMotercycle.AutoSize = true;
-            rdoMotercycle.Location = new Point(106, 22);
-            rdoMotercycle.Name = "rdoMotercycle";
-            rdoMotercycle.Size = new Size(84, 19);
-            rdoMotercycle.TabIndex = 4;
-            rdoMotercycle.TabStop = true;
-            rdoMotercycle.Text = "Motercycle";
-            rdoMotercycle.UseVisualStyleBackColor = true;
+            rdoMotorcycle.AutoSize = true;
+            rdoMotorcycle.Location = new Point(106, 22);
+            rdoMotorcycle.Name = "rdoMotorcycle";
+            rdoMotorcycle.Size = new Size(85, 19);
+            rdoMotorcycle.TabIndex = 4;
+            rdoMotorcycle.TabStop = true;
+            rdoMotorcycle.Text = "Motorcycle";
+            rdoMotorcycle.UseVisualStyleBackColor = true;
+            rdoMotorcycle.Click += RdoMotorcycleClickEH;
             // 
             // txtMake
             // 
@@ -271,6 +274,7 @@
             rdoPickup.TabStop = true;
             rdoPickup.Text = "Pickup";
             rdoPickup.UseVisualStyleBackColor = true;
+            rdoPickup.Click += RdoPickupClickEH;
             // 
             // lblModel
             // 
@@ -313,14 +317,14 @@
             gbxSpecialtyProperties.Controls.Add(lblSpecialtyBoolean);
             gbxSpecialtyProperties.Location = new Point(12, 386);
             gbxSpecialtyProperties.Name = "gbxSpecialtyProperties";
-            gbxSpecialtyProperties.Size = new Size(232, 159);
+            gbxSpecialtyProperties.Size = new Size(282, 159);
             gbxSpecialtyProperties.TabIndex = 1;
             gbxSpecialtyProperties.TabStop = false;
             gbxSpecialtyProperties.Text = "Specialty Properties";
             // 
             // txtSpecialtyDecimal
             // 
-            txtSpecialtyDecimal.Location = new Point(115, 105);
+            txtSpecialtyDecimal.Location = new Point(135, 105);
             txtSpecialtyDecimal.Name = "txtSpecialtyDecimal";
             txtSpecialtyDecimal.Size = new Size(100, 23);
             txtSpecialtyDecimal.TabIndex = 2;
@@ -390,7 +394,7 @@
             // gbxStoreInventory
             // 
             gbxStoreInventory.Controls.Add(lstInventory);
-            gbxStoreInventory.Location = new Point(260, 21);
+            gbxStoreInventory.Location = new Point(300, 21);
             gbxStoreInventory.Name = "gbxStoreInventory";
             gbxStoreInventory.Size = new Size(200, 417);
             gbxStoreInventory.TabIndex = 2;
@@ -407,7 +411,7 @@
             // 
             // btnAddCart
             // 
-            btnAddCart.Location = new Point(466, 203);
+            btnAddCart.Location = new Point(506, 203);
             btnAddCart.Name = "btnAddCart";
             btnAddCart.Size = new Size(75, 44);
             btnAddCart.TabIndex = 3;
@@ -417,7 +421,7 @@
             // gbxShoppingCart
             // 
             gbxShoppingCart.Controls.Add(lstShoppingCart);
-            gbxShoppingCart.Location = new Point(547, 21);
+            gbxShoppingCart.Location = new Point(587, 21);
             gbxShoppingCart.Name = "gbxShoppingCart";
             gbxShoppingCart.Size = new Size(200, 417);
             gbxShoppingCart.TabIndex = 4;
@@ -434,7 +438,7 @@
             // 
             // btnCheckout
             // 
-            btnCheckout.Location = new Point(608, 444);
+            btnCheckout.Location = new Point(648, 444);
             btnCheckout.Name = "btnCheckout";
             btnCheckout.Size = new Size(75, 23);
             btnCheckout.TabIndex = 5;
@@ -444,7 +448,7 @@
             // lblTotal
             // 
             lblTotal.AutoSize = true;
-            lblTotal.Location = new Point(608, 470);
+            lblTotal.Location = new Point(648, 470);
             lblTotal.Name = "lblTotal";
             lblTotal.Size = new Size(36, 15);
             lblTotal.TabIndex = 6;
@@ -453,7 +457,7 @@
             // lblTotalAmount
             // 
             lblTotalAmount.AutoSize = true;
-            lblTotalAmount.Location = new Point(650, 470);
+            lblTotalAmount.Location = new Point(690, 470);
             lblTotalAmount.Name = "lblTotalAmount";
             lblTotalAmount.Size = new Size(19, 15);
             lblTotalAmount.TabIndex = 7;
@@ -490,7 +494,7 @@
         private Label lblWheels;
         private Label lblPrice;
         private RadioButton rdoVehicle;
-        private RadioButton rdoMotercycle;
+        private RadioButton rdoMotorcycle;
         private Label lblYear;
         private RadioButton rdoPickup;
         private Label lblModel;
