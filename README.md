@@ -76,7 +76,7 @@ The Windows Forms client updates the fields shown for cars, motorcycles, pickups
 The solution separates the reusable application logic from its user interfaces.
 
 ```text
-VehicleClassLibrary/
+VehicleStore/
 ├── VehicleClassLibrary/
 │   ├── Models/
 │   │   ├── VehicleModel.cs
@@ -155,8 +155,8 @@ dotnet test VehicleClassLibrary.Tests/VehicleClassLibrary.Tests.csproj
 Clone the repository:
 
 ```bash
-git clone https://github.com/IPFizzy/VehicleClassLibrary.git
-cd VehicleClassLibrary
+git clone https://github.com/IPFizzy/VehicleStore.git
+cd VehicleStore
 ```
 
 Open `VehicleClassLibrary.slnx` in Visual Studio.
@@ -182,12 +182,6 @@ dotnet build VehicleClassLibrary.slnx
 ## Practice Project Context
 
 This repository began as an object-oriented programming and class-library exercise and is preserved as a completed practice project. The finished solution demonstrates inheritance, polymorphic collections, equality overrides, validation, reusable business logic, text-file persistence, multiple presentation layers, shopping-cart state, and automated testing.
-
-## Recommended Repository Name
-
-For a public portfolio, **`VehicleStore`** is a stronger repository name than `VehicleClassLibrary` because the repository contains a complete store application rather than only a reusable library.
-
-The internal solution, project, and namespace names can remain unchanged after the GitHub repository itself is renamed.
 
 ## Author
 
